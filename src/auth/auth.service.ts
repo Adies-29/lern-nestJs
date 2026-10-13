@@ -1,7 +1,6 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { RegisterDto } from './dto/register-dto.js';
 import { UserEntity } from './entities/user-entity.js';
-
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './dto/login-dto.js';
 import { HashingUtil } from './common/utils/hasing.util.js';
