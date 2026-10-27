@@ -19,7 +19,7 @@ export class BooksController {
     @Get(':id')
     getBookById(@Param('id') id:string){
         //logic
-        return this.bookService.findOne(Number(id));
+        return this.bookService.findOne((id));
     }
 
     //simpan data
@@ -33,12 +33,12 @@ export class BooksController {
     update(
     @Param('id') id: string,
     @Body() book: CreateBookDto){
-        return this.bookService.update(Number(id), book)
+        return this.bookService.update((id), book)
     }
        
     @Delete(':id')
     deleteBook(@Param('id') id:string){
-        return this.bookService.delete(Number(id));
+        return this.bookService.delete((id));
 
     }
 
