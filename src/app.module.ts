@@ -6,6 +6,13 @@ import { AuthModule } from './auth/auth.module.js';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import Joi from 'joi';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CategoriesModule } from './categories/categories.module.js';
+import { CustomersModule } from './customers/customers.module.js';
+import { OrdersModule } from './orders/orders.module.js';
+import { PaymentsModule } from './payments/payments.module.js';
+import { PublishersModule } from './publishers/publishers.module.js';
+import { AuthorsModule } from './authors/authors.module.js';
+import { ShipmentsModule } from './shipments/shipments.module.js';
 
 @Module({
   imports: [
@@ -41,7 +48,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         DB_DATABASE:Joi.string().required(),
       })
     }),
-    AuthModule],
+    AuthModule,
+    CategoriesModule,
+    CustomersModule,
+    OrdersModule,
+    PaymentsModule,
+    PublishersModule,
+    AuthorsModule,
+    ShipmentsModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -1,0 +1,35 @@
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { CustomerAddress } from "./customer-address.entity.js";
+import { Order } from "../../orders/entities/order-entity.js";
+
+@Entity('customers')
+export class Customer{
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
+
+    @Column({type: 'varchar', length:150})
+    name:string;
+
+    @Column({type: 'varchar', length:150, unique:true})
+    email:string;
+
+    @Column({type: 'varchar', length:20})
+    phone:string;
+
+    @CreateDateColumn({type: 'timestamp', name: 'created_at'})
+    createdAt: Date;
+
+    @UpdateDateColumn({type:'timestamp', name:'updated_at'})
+    updatedAt: Date;
+
+    @DeleteDateColumn({type:'timestamp', name: 'delete_at', nullable:true})
+    deleteAt: Date;
+
+    // Relasi ke customer_address (1 customer bisa memiliki banyak address)
+    @OneToMany(() => CustomerAddress, (address) => address.customer)
+    address:CustomerAddress[];
+
+    //relasi ke order (1 customer bisa memilikai bnayk order)
+    @OneToMany(() => Order, (order) => order.customer)
+    order: Order[];
+}
