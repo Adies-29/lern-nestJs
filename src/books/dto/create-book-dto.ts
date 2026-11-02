@@ -7,7 +7,7 @@ export class CreateBookDto{
     @IsNotEmpty({message:'Autho harus diisi!'})
     readonly author:string;
 
-    @IsInt({message:'ISBN harus diisi!'})
+    @IsNotEmpty({message:'ISBN harus diisi!'})
     readonly isbn:string;
 
     @IsNotEmpty({message:"Publish year harus disisi!"})

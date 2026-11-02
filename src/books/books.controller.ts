@@ -8,7 +8,6 @@ export class BooksController {
     constructor(private bookService: BooksService){
 
     }
-
     //menampilkan data
     @Get()
     getAllBooks(){

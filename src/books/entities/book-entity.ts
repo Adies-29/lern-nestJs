@@ -1,4 +1,7 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Category } from "../../categories/entities/category-entity.js";
+import { Publisher } from "../../publishers/entities/publisher-entity.js";
+import { OrderItem } from "../../orders/entities/order-item.entity.js";
 
 @Entity('books')
 export class Book{
@@ -14,7 +17,7 @@ export class Book{
     @Column({type: 'varchar'})
     isbn:string;
 
-    @Column({type: 'int', length:64})
+    @Column({type: 'int'})
     publishedYear:number;
 
     @Column({type: 'boolean', default:true})
@@ -23,9 +26,25 @@ export class Book{
     @CreateDateColumn({type: 'timestamp', name: 'created_at'})
     createdAt: Date;
 
-    @UpdateDateColumn({type:'timestamp', name:'updated_ar'})
-    upadatedAt: Date;
+    @UpdateDateColumn({type:'timestamp', name:'updated_at'})
+    updatedAt: Date;
 
     @DeleteDateColumn({type:'timestamp', name: 'delete_at', nullable:true})
     deleteAt: Date;
+
+    // Relasi: Banyak Books dimiliki oleh 1 Category
+    @ManyToOne(() => Category, (category) => category.books)
+    @JoinColumn({name:'category_id'})
+    category:Category;
+
+    //reslasi publisher
+    @ManyToOne(()=> Publisher, (publisher)=> publisher.books)
+    @JoinColumn({name:'publisher_id'})
+    publisher:Publisher;
+
+    // relasi book_author
+
+    //relasi order_items
+    @OneToMany(() => OrderItem, (item) => item.book)
+    orderitem:OrderItem[];
 }
