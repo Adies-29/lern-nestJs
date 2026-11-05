@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, type Relation, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Category } from "../../categories/entities/category-entity.js";
 import { Publisher } from "../../publishers/entities/publisher-entity.js";
 import { OrderItem } from "../../orders/entities/order-item.entity.js";
@@ -33,9 +33,9 @@ export class Book{
     deleteAt: Date;
 
     // Relasi: Banyak Books dimiliki oleh 1 Category
-    @ManyToOne(() => Category, (category) => category.books)
-    @JoinColumn({name:'category_id'})
-    category:Category;
+    @ManyToOne('Category', (category: any) => category.books)
+    @JoinColumn({ name: 'category_id' })
+    category: Relation<Category>;
 
     //reslasi publisher
     @ManyToOne(()=> Publisher, (publisher)=> publisher.books)
@@ -45,6 +45,6 @@ export class Book{
     // relasi book_author
 
     //relasi order_items
-    @OneToMany(() => OrderItem, (item) => item.book)
-    orderitem:OrderItem[];
+    @OneToMany('OrderItem', (item: any) => item.book)
+    orderItems: Relation<OrderItem[]>;
 }

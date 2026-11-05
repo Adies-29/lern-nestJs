@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, type Relation, } from "typeorm";
 import { Customer } from "../../customers/entities/customer-entity.js";
 import { OrderItem } from "./order-item.entity.js";
 import { Payment } from "../../payments/entities/payment-entity.js";
@@ -31,22 +31,17 @@ export class Order{
     deleteAt: Date;
 
 
-    //relasi ke customer (banyak order bisa dimiliki 1 customer yang sama)
-    @ManyToOne(() => Customer, (customer)=> customer.order)
-    @JoinColumn({name: 'customer_id'})
-    customer: Customer;
+   // Gunakan string 'Customer' dan Relation<Customer>
+  @ManyToOne('Customer', (customer: any) => customer.orders)
+  @JoinColumn({ name: 'customer_id' })
+  customer: Relation<Customer>;
 
-    //relasi ke order item  (1 order memiliki bnayak order_item)
-    @OneToMany(() => OrderItem,(item) => item.order, {
-        cascade: true,
-    })
-    items:OrderItem[];
+  @OneToMany('OrderItem', (item: any) => item.order, { cascade: true })
+  items: Relation<OrderItem[]>;
 
-    // relasi paymentx
-    @OneToOne(() => Payment, (payment) => payment.order)
-    payment:Payment[];
-    
-    // relasi shipment
-    @OneToOne(() => Shipment, (shipment) => shipment.order)
-    shipment: Shipment;
+  @OneToOne('Payment', (payment: any) => payment.order)
+  payment: Relation<Payment>;
+
+  @OneToOne('Shipment', (shipment: any) => shipment.order)
+  shipment: Relation<Shipment>;
 }

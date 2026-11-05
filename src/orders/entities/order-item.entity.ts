@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn, type Relation, } from "typeorm";
 import { Order } from "./order-entity.js";
 import { Book } from "../../books/entities/book-entity.js";
 
@@ -23,13 +23,13 @@ export class OrderItem{
     subtotal:number;
 
     //relasi ke order
-    @ManyToOne(() => Order, (order) => order.items, {onDelete: 'CASCADE'})
-    @JoinColumn({name:'order_id'})
-    order:Order
+    @ManyToOne('Order', (order: any) => order.items, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'order_id' })
+  order: Relation<Order>;
 
-    //relasi ke book 
-    @ManyToOne(() => Book, (book) => book.orderitem)
-    @JoinColumn({name: 'book_id'})
-    book: Book
+  // Gunakan string 'Book' dan tipe Relation<Book>
+  @ManyToOne('Book', (book: any) => book.orderItems)
+  @JoinColumn({ name: 'book_id' })
+  book: Relation<Book>;
 
 }

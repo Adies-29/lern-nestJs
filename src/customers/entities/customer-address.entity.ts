@@ -34,8 +34,8 @@ export class CustomerAddress{
     updatedAt:Date;
 
     // Relasi ke customer (banyak address bisa dimiliki 1 customer yang sama)
-    @ManyToOne(() => Customer,(customer) => customer.address,{
-        onDelete:'CASCADE'
+    @ManyToOne('Customer', (customer: any) => customer.addresses, {
+    onDelete: 'CASCADE',
     })
     @JoinColumn({name:'customer_id'})
     customer: Customer
