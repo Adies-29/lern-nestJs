@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn,type Relation, } from "typeorm";
 import { Order } from "../../orders/entities/order-entity.js";
 import { IsUUID } from "class-validator";
 
@@ -27,8 +27,8 @@ export class Payment{
     createdAt:Date;
 
     //relasi Order
-    @OneToOne(() => Order, (order) => order.payment)
-    @JoinColumn({name:'order_id'})
-    order:Order;
+    @OneToOne('Order', (order: any) => order.payment)
+    @JoinColumn({ name: 'order_id' })
+    order: Relation<Order>; // <-- Bungkus dengan Relation<>
 
 }

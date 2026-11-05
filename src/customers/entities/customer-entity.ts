@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn,type Relation } from'typeorm';
 import { CustomerAddress } from "./customer-address.entity.js";
 import { Order } from "../../orders/entities/order-entity.js";
 
@@ -26,10 +26,12 @@ export class Customer{
     deleteAt: Date;
 
     // Relasi ke customer_address (1 customer bisa memiliki banyak address)
-    @OneToMany(() => CustomerAddress, (address) => address.customer)
-    address:CustomerAddress[];
+    @OneToMany('CustomerAddress', (address: any) => address.customer, {
+    cascade: true,
+    })
+    addresses: Relation<CustomerAddress[]>;
 
     //relasi ke order (1 customer bisa memilikai bnayk order)
-    @OneToMany(() => Order, (order) => order.customer)
-    order: Order[];
+    @OneToMany('Order', (order: any) => order.customer)
+    orders: Relation<Order[]>;
 }
